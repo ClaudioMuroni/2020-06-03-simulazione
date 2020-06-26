@@ -5,9 +5,11 @@
 package it.polito.tdp.PremierLeague;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.PremierLeague.model.Model;
+import it.polito.tdp.PremierLeague.model.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -44,6 +46,18 @@ public class FXMLController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
+    	
+    	try {
+    		
+    		double x = Double.parseDouble(txtGoals.getText());
+    		this.model.creaGrafo(x);
+    	} catch(NumberFormatException nbe) {
+    		
+    		txtResult.appendText("Inserisci un numero nel campo Goal fatti(x)\n");
+    	} catch(NullPointerException npe) {
+    		
+    		txtResult.appendText("Inserisci un numero nel campo Goal fatti(x)\n");
+    	}
 
     }
 
@@ -54,6 +68,21 @@ public class FXMLController {
 
     @FXML
     void doTopPlayer(ActionEvent event) {
+    	
+    	List<Player> lista = this.model.cercaTopPlayer();
+    	
+    	boolean top = true;
+    	txtResult.clear();
+    	txtResult.appendText("Top player: ");
+    	for(Player p : lista) {
+    		
+    		txtResult.appendText(p.getName()+"\n");
+    		if (top) {
+    			
+    			txtResult.appendText("Giocatori battuti:\n");
+    			top = false;
+    		}
+    	}
 
     }
 

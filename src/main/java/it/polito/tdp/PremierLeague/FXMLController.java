@@ -64,6 +64,28 @@ public class FXMLController {
     @FXML
     void doDreamTeam(ActionEvent event) {
 
+    	int k = 0;
+    	
+    	try {
+    		
+    		k = Integer.parseInt(txtK.getText());
+    	}
+    	catch(NumberFormatException nfe) {
+    		
+    		txtResult.appendText("Inserisci un numero intero nel campo #Giocatori (k)\n");
+    		return;
+    	}
+    	
+    	List<Player> lista = model.dreamTeam(k);
+    	
+    	txtResult.clear();
+    	txtResult.appendText("Dream Team:\n");
+    	for(Player p : lista) {
+    		
+    		txtResult.appendText(p.getName()+"\n");
+    	}
+    	txtResult.appendText("Titolarità: "+this.model.getTitolaritaDT());
+    	
     }
 
     @FXML
